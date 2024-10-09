@@ -1,0 +1,50 @@
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+public class Statistics {
+    public static void main(String[] args) {
+        short[] arr = {35, 25, 18, 45, 77, 21, 3};
+        double mean = calculateMean(arr);
+        System.out.println("Mean: " + mean);
+        double median = calculateMedian(arr);
+        System.out.println("Median: " + median);
+        Integer mode = calculateMode(arr);
+        System.out.println("Mode: " + mode);
+    }
+    private static double calculateMean(short[] arr) {
+        double sum = 0;
+        for (short num : arr) {
+            sum += num;
+        }
+        return sum / arr.length;
+    }
+    private static double calculateMedian(short[] arr) {
+        Arrays.sort(arr);
+        int middle = arr.length / 2;
+        if (arr.length % 2 == 0) {
+            return (arr[middle - 1] + arr[middle]) / 2.0;
+        } else {
+            return arr[middle];
+        }
+    }
+    private static Integer calculateMode(short[] arr) {
+        Map<Short, Integer> frequencyMap = new HashMap<>();
+        for (short num : arr) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+        short mode = arr[0];
+        int maxCount = 0;
+        for (Map.Entry<Short, Integer> entry : frequencyMap.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                maxCount = entry.getValue();
+                mode = entry.getKey();
+            }
+        }
+        return maxCount > 1 ? (int) mode : null;
+    }
+}
+
+
+ouput:Mean: 32.0
+Median: 25.0
+Mode: null
