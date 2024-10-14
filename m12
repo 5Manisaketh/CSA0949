@@ -1,0 +1,12 @@
+import java.util.Arrays;
+public class NthLargest {
+    public static void main(String[] args) {
+        int[] arr = {3, 5, 7, 2, 8, 6, 4};
+        int n = 3; 
+        System.out.println(findNthLargest(arr, n));
+    }
+    public static int findNthLargest(int[] arr, int n) {
+        Arrays.sort(arr);
+        return arr[arr.length - n];
+    }
+}
