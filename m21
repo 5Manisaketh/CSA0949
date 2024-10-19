@@ -1,0 +1,51 @@
+
+class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Try programiz.pro");
+    }
+}import java.util.Scanner;
+
+public class PrimeChecker implements Runnable {
+    private String input;
+
+    public PrimeChecker(String input) {
+        this.input = input;
+    }
+
+    @Override
+    public void run() {
+        try {
+            int number = Integer.parseInt(input);
+            if (number < 2) {
+                System.out.println(number + " is not Prime");
+            } else {
+                boolean isPrime = true;
+                for (int i = 2; i <= Math.sqrt(number); i++) {
+                    if (number % i == 0) {
+                        isPrime = false;
+                        break;
+                    }
+                }
+                System.out.println(number + (isPrime ? " is Prime" : " is not Prime"));
+            }
+        } catch (NumberFormatException e) {
+            System.out.println(input + " is not a valid integer");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String[] testCases = {"4", "-10", "0", "EIGHT SEVEN", "11.48", "5"};
+
+        for (String testCase : testCases) {
+            Thread thread = new Thread(new PrimeChecker(testCase));
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        scanner.close();
+    }
+}
