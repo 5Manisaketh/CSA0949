@@ -1,0 +1,28 @@
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class FileReadWriteExample {
+    public static void main(String[] args) {
+        String dataToWrite = "Computer Science and Engineering";
+        String filePath = "example.txt";
+
+        // Writing to the file
+        try (FileWriter fileWriter = new FileWriter(filePath)) {
+            fileWriter.write(dataToWrite);
+            System.out.println("Data written to the file: " + dataToWrite);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Reading from the file
+        try (FileReader fileReader = new FileReader(filePath)) {
+            char[] buffer = new char[100]; // Buffer to hold the read characters
+            int charsRead = fileReader.read(buffer); // Read characters into buffer
+            String dataRead = new String(buffer, 0, charsRead); // Convert buffer to string
+            System.out.println("Data read from the file: " + dataRead);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
