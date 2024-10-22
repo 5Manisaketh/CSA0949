@@ -1,0 +1,41 @@
+class Calculator extends Thread {
+    private String operation;
+    private int a, b;
+
+    Calculator(String operation, int a, int b) {
+        this.operation = operation;
+        this.a = a;
+        this.b = b;
+    }
+
+    public void run() {
+        switch (operation) {
+            case "add":
+                System.out.println("Addition: " + (a + b));
+                break;
+            case "subtract":
+                System.out.println("Subtraction: " + (a - b));
+                break;
+            case "multiply":
+                System.out.println("Multiplication: " + (a * b));
+                break;
+            case "divide":
+                System.out.println("Division: " + (a / b));
+                break;
+        }
+    }
+}
+
+public class MultiThreadCalculator {
+    public static void main(String[] args) {
+        Thread t1 = new Calculator("add", 5, 3);
+        Thread t2 = new Calculator("subtract", 5, 3);
+        Thread t3 = new Calculator("multiply", 5, 3);
+        Thread t4 = new Calculator("divide", 6, 3);
+        
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+    }
+}
