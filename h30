@@ -1,0 +1,44 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class FibonacciSplit {
+    public List<Integer> splitIntoFibonacci(String num) {
+        List<Integer> result = new ArrayList<>();
+        int n = num.length();
+        
+        for (int i = 1; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                result.clear();
+                if (backtrack(num, 0, i, j, result)) {
+                    return result;
+                }
+            }
+        }
+        return result;
+    }
+
+    private boolean backtrack(String num, int start, int len1, int len2, List<Integer> result) {
+        if (start == num.length()) {
+            return result.size() >= 3;
+        }
+
+        long f1 = Long.parseLong(num.substring(start, start + len1));
+        long f2 = Long.parseLong(num.substring(start + len1, start + len1 + len2));
+        
+        if (f1 > Integer.MAX_VALUE || f2 > Integer.MAX_VALUE) return false;
+
+        result.add((int) f1);
+        result.add((int) f2);
+
+        long sum = f1 + f2;
+        String sumStr = String.valueOf(sum);
+        
+        if (!num.startsWith(sumStr, start + len1 + len2)) {
+            result.remove(result.size() - 1);
+            result.remove(result.size() - 1);
+            return false;
+        }
+
+        return backtrack(num, start + len1 + len2, len2, sumStr.length(), result);
+    }
+}
