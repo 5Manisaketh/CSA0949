@@ -1,0 +1,23 @@
+import java.util.HashSet;
+
+public class Main {
+    public static void main(String[] args) {
+        int[] arr = {1, 1, 2};
+        System.out.println(countDistinctBitwiseORs(arr));
+    }
+
+    public static int countDistinctBitwiseORs(int[] arr) {
+        HashSet<Integer> distinctORs = new HashSet<>();
+        int currentOR = 0;
+        
+        for (int i = 0; i < arr.length; i++) {
+            currentOR = 0;
+            for (int j = i; j < arr.length; j++) {
+                currentOR |= arr[j];
+                distinctORs.add(currentOR);
+            }
+        }
+        
+        return distinctORs.size();
+    }
+}
