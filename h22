@@ -1,0 +1,56 @@
+import java.io.*;
+import java.util.*;
+
+class DirectoryEntry {
+    String name;
+    String address;
+    String telephoneNumber;
+    String mobileNumber;
+    String headOfFamily;
+    String uniqueID;
+
+    DirectoryEntry(String name, String address, String telephoneNumber, String mobileNumber, String headOfFamily, String uniqueID) {
+        this.name = name;
+        this.address = address;
+        this.telephoneNumber = telephoneNumber;
+        this.mobileNumber = mobileNumber;
+        this.headOfFamily = headOfFamily;
+        this.uniqueID = uniqueID;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + "\nAddress: " + address + "\nTelephone: " + telephoneNumber +
+               "\nMobile: " + mobileNumber + "\nHead of Family: " + headOfFamily +
+               "\nUnique ID: " + uniqueID + "\n";
+    }
+}
+
+public class Directory {
+    List<DirectoryEntry> entries = new ArrayList<>();
+
+    void addEntry(DirectoryEntry entry) {
+        entries.add(entry);
+    }
+
+    void saveToFile(String filename) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            for (DirectoryEntry entry : entries) {
+                writer.write(entry.toString());
+                writer.write("----------\n");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Directory directory = new Directory();
+        directory.addEntry(new DirectoryEntry("John Doe", "123 Main St", "01234-567890", "9876543210", "John Doe", "UID001"));
+        
+        try {
+            directory.saveToFile("directory.txt");
+            System.out.println("Directory saved to directory.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
