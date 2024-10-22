@@ -1,0 +1,29 @@
+public class Solution {
+    public int[] threeEqualParts(int[] arr) {
+        int countOnes = 0;
+        for (int num : arr) if (num == 1) countOnes++;
+        
+        if (countOnes % 3 != 0) return new int[]{-1, -1};
+        if (countOnes == 0) return new int[]{0, arr.length - 1};
+
+        int onesPerPart = countOnes / 3;
+        int first = 0, second = 0, third = 0;
+        
+        for (int i = 0, onesCount = 0; i < arr.length; i++) {
+            if (arr[i] == 1) {
+                onesCount++;
+                if (onesCount == 1) first = i;
+                else if (onesCount == onesPerPart + 1) second = i;
+                else if (onesCount == 2 * onesPerPart + 1) third = i;
+            }
+        }
+
+        while (third < arr.length && arr[first] == arr[second] && arr[second] == arr[third]) {
+            first++;
+            second++;
+            third++;
+        }
+
+        return third == arr.length ? new int[]{first - 1, second} : new int[]{-1, -1};
+    }
+}
