@@ -1,0 +1,47 @@
+class Student {
+    String name;
+    int[] marks = new int[6];
+
+    Student(String name, int[] marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    int calculateTotal() {
+        int total = 0;
+        for (int mark : marks) {
+            total += mark;
+        }
+        return total;
+    }
+
+    double calculateAggregate() {
+        return (calculateTotal() / 6.0);
+    }
+}
+
+class Grade extends Student {
+
+    Grade(String name, int[] marks) {
+        super(name, marks);
+    }
+
+    String determineGrade() {
+        double aggregate = calculateAggregate();
+        if (aggregate > 75) return "Distinction";
+        if (aggregate >= 60) return "First Division";
+        if (aggregate >= 50) return "Second Division";
+        if (aggregate >= 40) return "Third Division";
+        return "FAIL";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        int[] marks = {85, 78, 90, 65, 70, 80};
+        Grade student = new Grade("John Doe", marks);
+        System.out.println("Total Marks: " + student.calculateTotal());
+        System.out.println("Aggregate: " + student.calculateAggregate());
+        System.out.println("Grade: " + student.determineGrade());
+    }
+}
