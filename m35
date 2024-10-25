@@ -1,0 +1,17 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class FileStats {
+    public static void main(String[] args) throws IOException {
+        String filePath = "yourfile.txt";
+        long lines = Files.lines(Paths.get(filePath)).count();
+        long words = Files.lines(Paths.get(filePath))
+                          .flatMap(line -> Arrays.stream(line.split("\\s+"))).count();
+        long characters = Files.readString(Paths.get(filePath)).length();
+        
+        System.out.println("Lines: " + lines);
+        System.out.println("Words: " + words);
+        System.out.println("Characters: " + characters);
+    }
+}
