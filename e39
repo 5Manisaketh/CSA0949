@@ -1,0 +1,42 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class CommentRemover {
+
+    public static void main(String[] args) {
+        String inputFile = "path/to/your/input.java"; // Specify the input file path
+        String outputFile = "path/to/your/output.java"; // Specify the output file path
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+             FileWriter writer = new FileWriter(outputFile)) {
+
+            String line;
+            boolean inBlockComment = false;
+
+            while ((line = reader.readLine()) != null) {
+                if (inBlockComment) {
+                    if (line.contains("*/")) {
+                        inBlockComment = false;
+                        line = line.substring(line.indexOf("*/") + 2); 
+                    } else {
+                        continue; 
+                    }
+                }
+                if (line.contains("/*")) {
+                    inBlockComment = true;
+                    line = line.substring(0, line.indexOf("/*"));
+                }
+                int singleLineCommentIndex = line.indexOf("//");
+                if (singleLineCommentIndex != -1) {
+                    line = line.substring(0, singleLineCommentIndex); 
+                }
+
+                writer.write(line.trim() + System.lineSeparator()); 
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
