@@ -1,0 +1,41 @@
+import java.util.*;
+
+public class ExamRoom {
+    private int n;
+    private TreeSet<Integer> seats;
+
+    public ExamRoom(int n) {
+        this.n = n;
+        this.seats = new TreeSet<>();
+    }
+
+    public int seat() {
+        if (seats.isEmpty()) {
+            seats.add(0);
+            return 0;
+        }
+
+        int maxDist = 0, seatToTake = 0;
+        Integer prev = -1;
+
+        for (int s : seats) {
+            int dist = (s - prev) / 2;
+            if (dist > maxDist) {
+                maxDist = dist;
+                seatToTake = prev == -1 ? s : prev + dist;
+            }
+            prev = s;
+        }
+
+        if (n - 1 - seats.last() > maxDist) {
+            seatToTake = n - 1;
+        }
+
+        seats.add(seatToTake);
+        return seatToTake;
+    }
+
+    public void leave(int p) {
+        seats.remove(p);
+    }
+}
