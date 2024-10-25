@@ -1,0 +1,33 @@
+class NumberThread extends Thread {
+    private static int number = 1;
+    private static final Object lock = new Object();
+    private int threadId;
+
+    NumberThread(int id) {
+        this.threadId = id;
+    }
+
+    public void run() {
+        while (number <= 30) {
+            synchronized (lock) {
+                if (number % 3 == threadId) {
+                    System.out.println(number++);
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {}
+                }
+            }
+        }
+    }
+}
+
+public class NaturalNumbers {
+    public static void main(String[] args) {
+        Thread t1 = new NumberThread(0);
+        Thread t2 = new NumberThread(1);
+        Thread t3 = new NumberThread(2);
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+}
