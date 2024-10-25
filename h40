@@ -1,0 +1,39 @@
+class LowPriorityThread extends Thread {
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Low Priority Thread - Count: " + i);
+            try {
+                Thread.sleep(500); // Simulate some delay
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+    }
+}
+
+class HighPriorityThread extends Thread {
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("High Priority Thread - Count: " + i);
+            try {
+                Thread.sleep(500); // Simulate some delay
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }
+    }
+}
+
+public class ThreadPriorityDemo {
+    public static void main(String[] args) {
+        LowPriorityThread lowPriority = new LowPriorityThread();
+        HighPriorityThread highPriority = new HighPriorityThread();
+
+        lowPriority.setPriority(Thread.MIN_PRIORITY); // Priority 1
+        highPriority.setPriority(Thread.MAX_PRIORITY); // Priority 10
+
+        // Starting threads
+        lowPriority.start();
+        highPriority.start();
+    }
+}
