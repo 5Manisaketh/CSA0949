@@ -1,0 +1,32 @@
+class Employee {
+    protected double salary;
+
+    public Employee(double salary) {
+        this.salary = salary;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+}
+
+class Manager extends Employee {
+    private double travelAllowance;
+    private double houseRentAllowance;
+
+    public Manager(double salary, double travelAllowance, double houseRentAllowance) {
+        super(salary);
+        this.travelAllowance = travelAllowance;
+        this.houseRentAllowance = houseRentAllowance;
+    }
+
+    @Override
+    public double getSalary() {
+        return salary + travelAllowance + houseRentAllowance;
+    }
+
+    public static void main(String[] args) {
+        Manager m = new Manager(50000, 5000, 10000);
+        System.out.println("Manager's Total Salary: " + m.getSalary());
+    }
+}
