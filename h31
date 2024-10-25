@@ -1,0 +1,44 @@
+class Date {
+    private int day, month, year;
+
+    public Date(int day, int month, int year) {
+        this.day = day;
+        this.month = month;
+        this.year = year;
+    }
+
+    public String toString() {
+        return day + "/" + month + "/" + year;
+    }
+}
+
+class Student {
+    private int id;
+    private String name;
+    private Date dob;
+    private int[] marks = new int[3];
+
+    public Student(int id, String name, Date dob, int[] marks) {
+        this.id = id;
+        this.name = name;
+        this.dob = dob;
+        this.marks = marks;
+    }
+
+    public void display() {
+        System.out.println("ID: " + id);
+        System.out.println("Name: " + name);
+        System.out.println("Date of Birth: " + dob);
+        System.out.println("Marks: ");
+        for (int i = 0; i < marks.length; i++) {
+            System.out.println("Subject " + (i + 1) + ": " + marks[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+        Date dob = new Date(15, 8, 2000);
+        int[] marks = {85, 90, 88};
+        Student s = new Student(101, "John Doe", dob, marks);
+        s.display();
+    }
+}
