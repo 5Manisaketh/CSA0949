@@ -1,0 +1,52 @@
+import java.util.ArrayList;
+
+class Employee {
+    private String name;
+    private int id;
+    private double salary;
+    private double employeePF;
+    private double employeeAllowance;
+
+    public Employee(String name, int id, double salary, double employeePF, double employeeAllowance) {
+        this.name = name;
+        this.id = id;
+        this.salary = salary;
+        this.employeePF = employeePF;
+        this.employeeAllowance = employeeAllowance;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void display() {
+        System.out.println("Name: " + name + ", ID: " + id + ", Salary: " + salary +
+                           ", PF: " + employeePF + ", Allowance: " + employeeAllowance);
+    }
+}
+
+public class EmployeeManager {
+    public static void main(String[] args) {
+        ArrayList<Employee> employees = new ArrayList<>();
+
+        // Adding employees
+        employees.add(new Employee("Alice", 101, 50000, 5000, 2000));
+        employees.add(new Employee("Bob", 102, 55000, 5500, 2200));
+
+        // Retrieve employee by ID
+        for (Employee emp : employees) {
+            if (emp.getId() == 101) {
+                emp.display();
+            }
+        }
+
+        // Remove employee by ID
+        employees.removeIf(emp -> emp.getId() == 102);
+
+        // Display all employees
+        System.out.println("Remaining Employees:");
+        for (Employee emp : employees) {
+            emp.display();
+        }
+    }
+}
